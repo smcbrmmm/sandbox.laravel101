@@ -25,12 +25,23 @@ Route::get('/hello/id', function () {
     return 'Hello ID';
 });
 
-Route::get('/pages','App\Http\Controllers\PagesController@index');
-Route::get('/pages/{id?}','App\Http\Controllers\PagesController@show');
-Route::get('/pages/{name?}/{tag?}','App\Http\Controllers\PagesController@drop');
+Route::get('/pages', function () {
+    return view('pages.index');
+});
+
+Route::get('/pages/{id}', function ($id) {
+    return view('pages.show' , [
+        'name'=> 'Samanta',
+        'id'=>$id,
+        'text' => '<h3> h3 text<h3>',
+        'array' => []
+    ]);
+});
 
 
-
+//Route::get('/pages','App\Http\Controllers\PagesController@index');
+////Route::get('/pages/{id?}','App\Http\Controllers\PagesController@show');
+////Route::get('/pages/{name?}/{tag?}','App\Http\Controllers\PagesController@drop');
 
 // Route::get('/admin/page/{id?}', function ($id='default') {
 //     return 'This is Page: ' . $id;
