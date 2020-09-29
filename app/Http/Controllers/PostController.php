@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -38,9 +39,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required|min:5|max:500'
+        ]);
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->content = $request->input('content');
+        $post->user_id = $request->user()->id; // จะได้ของโพสต์ของ User คนที่ login อยู่
+//        $post->user_id = Auth::user()->id;
         $post->save();
         return redirect()->route('posts.index');
     }
@@ -84,7 +92,14 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $post = Post::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required|min:5|max:500'
+        ]);
+
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();

@@ -23,6 +23,11 @@
         <p> มีตัวแปร $record ให้ใช้งาน</p>
     @endisset
 
+{{--    @foreach( $posts as $post)--}}
+{{--        <p> {{ $post }}</p>--}}
+
+{{--    @endforeach--}}
+
 
     @empty($array)
         <p>ตรวจสอบแล้วเป็น array ว่างหรือ string ว่าง หรือค่า null</p>
